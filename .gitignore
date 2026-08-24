@@ -1,0 +1,23 @@
+# Godot
+godot/.godot/
+godot/export.cfg
+godot/export_presets.cfg
+
+# Python
+python/.venv/
+python/venv/
+python/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# ML training output
+python/models/
+python/logs/
+python/runs/
+
+# IDE / OS clutter
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
