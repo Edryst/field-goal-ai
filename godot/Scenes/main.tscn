@@ -1,0 +1,128 @@
+[gd_scene format=3 uid="uid://6xog4csor2br"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7u77a"]
+albedo_color = Color(0.41960785, 0.58431375, 0.2784314, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_7u77a"]
+material = SubResource("StandardMaterial3D_7u77a")
+size = Vector3(30, 0.2, 50)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jjgbg"]
+size = Vector3(30, 0.2, 50)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jjgbg"]
+albedo_color = Color(1, 1, 0, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_bo1nx"]
+material = SubResource("StandardMaterial3D_jjgbg")
+top_radius = 0.08
+bottom_radius = 0.08
+height = 3.0
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_8gbba"]
+height = 3.0
+radius = 0.08
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jjvhh"]
+albedo_color = Color(1, 1, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_kry3j"]
+material = SubResource("StandardMaterial3D_jjvhh")
+size = Vector3(5.64, 0.12, 0.12)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_21xkr"]
+size = Vector3(5.64, 0.12, 0.12)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6bp64"]
+albedo_color = Color(1, 1, 0, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_344ge"]
+material = SubResource("StandardMaterial3D_6bp64")
+top_radius = 0.06
+bottom_radius = 0.06
+height = 6.0
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_ynf5e"]
+height = 6.0
+radius = 0.06
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hptm8"]
+albedo_color = Color(1, 1, 0, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_d1ilt"]
+material = SubResource("StandardMaterial3D_hptm8")
+top_radius = 0.06
+bottom_radius = 0.06
+height = 6.0
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_6iyac"]
+height = 6.0
+radius = 0.06
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fdnlq"]
+size = Vector3(5.4, 6, 0.5)
+
+[node name="Main" type="Node3D" unique_id=1497583186]
+
+[node name="Field" type="StaticBody3D" parent="." unique_id=516316326]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, -10)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Field" unique_id=358095793]
+mesh = SubResource("BoxMesh_7u77a")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Field" unique_id=787154509]
+shape = SubResource("BoxShape3D_jjgbg")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=985061350]
+transform = Transform3D(0.8660254, 0.43301272, -0.24999999, 0, 0.49999997, 0.86602545, 0.5, -0.75, 0.43301266, 0, 0, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1168096713]
+
+[node name="GoalPost" type="Node3D" parent="." unique_id=62040691]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -21.03)
+
+[node name="SupportPole" type="StaticBody3D" parent="GoalPost" unique_id=960323405]
+
+[node name="SupportPoleMesh" type="MeshInstance3D" parent="GoalPost/SupportPole" unique_id=1667458028]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+mesh = SubResource("CylinderMesh_bo1nx")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GoalPost/SupportPole" unique_id=1055706236]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+shape = SubResource("CylinderShape3D_8gbba")
+
+[node name="Crossbar" type="StaticBody3D" parent="GoalPost" unique_id=1783502331]
+
+[node name="CrossbarMesh" type="MeshInstance3D" parent="GoalPost/Crossbar" unique_id=1898739990]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+mesh = SubResource("BoxMesh_kry3j")
+
+[node name="CrossbarCollision" type="CollisionShape3D" parent="GoalPost/Crossbar" unique_id=472581983]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+shape = SubResource("BoxShape3D_21xkr")
+
+[node name="LeftUpright" type="StaticBody3D" parent="GoalPost" unique_id=1302885882]
+
+[node name="LeftUprightMesh" type="MeshInstance3D" parent="GoalPost/LeftUpright" unique_id=651827001]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.82, 6, 0)
+mesh = SubResource("CylinderMesh_344ge")
+
+[node name="LeftUprightCollision" type="CollisionShape3D" parent="GoalPost/LeftUpright" unique_id=1122260537]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.82, 6, 0)
+shape = SubResource("CylinderShape3D_ynf5e")
+
+[node name="RightUpright" type="StaticBody3D" parent="GoalPost" unique_id=1552196514]
+
+[node name="RightUprightMesh" type="MeshInstance3D" parent="GoalPost/RightUpright" unique_id=314659019]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.82, 6, 0)
+mesh = SubResource("CylinderMesh_d1ilt")
+
+[node name="RightUprightCollision" type="CollisionShape3D" parent="GoalPost/RightUpright" unique_id=1143449923]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.82, 6, 0)
+shape = SubResource("CylinderShape3D_6iyac")
+
+[node name="GoalDetector" type="Area3D" parent="GoalPost" unique_id=2130620298]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GoalPost/GoalDetector" unique_id=1728766737]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, 0)
+shape = SubResource("BoxShape3D_fdnlq")
