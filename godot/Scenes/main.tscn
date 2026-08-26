@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bkgrt6d2p2vrm" path="res://Scenes/football.tscn" id="1_jjgbg"]
 [ext_resource type="Script" uid="uid://cii3ynrbkkksr" path="res://Scripts/goal_detector.gd" id="2_bo1nx"]
+[ext_resource type="PackedScene" uid="uid://dxpo8ueqbdb8u" path="res://Scenes/garry.tscn" id="3_8gbba"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7u77a"]
 albedo_color = Color(0.41960785, 0.58431375, 0.2784314, 1)
@@ -130,6 +131,9 @@ script = ExtResource("2_bo1nx")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 13.05, 0)
 shape = SubResource("BoxShape3D_fdnlq")
 
+[node name="Garry" parent="." unique_id=1924829701 instance=ExtResource("3_8gbba")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.7)
+
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=985061350]
 transform = Transform3D(0.8660254, 0.43301272, -0.24999999, 0, 0.49999997, 0.86602545, 0.5, -0.75, 0.43301266, 0, 0, 0)
 
@@ -141,4 +145,3 @@ current = true
 
 [node name="CameraBehind" type="Camera3D" parent="." unique_id=1986224578]
 transform = Transform3D(-0.8948564, 0, 0.4463541, 0, 1, 0, -0.4463541, 0, -0.8948564, 7.2, 5.15, -32)
-current = true

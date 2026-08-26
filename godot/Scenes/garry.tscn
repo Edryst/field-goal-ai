@@ -1,0 +1,157 @@
+[gd_scene format=3 uid="uid://dxpo8ueqbdb8u"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_tkfer"]
+size = Vector3(0.45, 0.65, 0.25)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tkfer"]
+size = Vector3(0.45, 0.65, 0.25)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_tkfer"]
+radius = 0.1
+height = 0.55
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_g5wkh"]
+radius = 0.1
+height = 0.55
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_g5wkh"]
+radius = 0.08
+height = 0.5
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_vxolb"]
+radius = 0.08
+height = 0.5
+
+[sub_resource type="BoxMesh" id="BoxMesh_g5wkh"]
+size = Vector3(0.16, 0.1, 0.32)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vxolb"]
+size = Vector3(0.16, 0.1, 0.32)
+
+[node name="Garry" type="Node3D" unique_id=1924829701]
+
+[node name="Torso" type="StaticBody3D" parent="." unique_id=1537864415]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.35, 0)
+
+[node name="TorsoMesh" type="MeshInstance3D" parent="Torso" unique_id=1056658971]
+mesh = SubResource("BoxMesh_tkfer")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Torso" unique_id=8212628]
+shape = SubResource("BoxShape3D_tkfer")
+
+[node name="LeftLeg" type="Node3D" parent="." unique_id=1833111469]
+
+[node name="LeftThigh" type="RigidBody3D" parent="LeftLeg" unique_id=1401778532]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.15, 0.82, 0)
+
+[node name="LeftThighMesh" type="MeshInstance3D" parent="LeftLeg/LeftThigh" unique_id=267006665]
+mesh = SubResource("CapsuleMesh_tkfer")
+
+[node name="LeftThighCollision" type="CollisionShape3D" parent="LeftLeg/LeftThigh" unique_id=348785471]
+shape = SubResource("CapsuleShape3D_g5wkh")
+
+[node name="LeftShin" type="RigidBody3D" parent="LeftLeg" unique_id=1274914178]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.15, 0.3, 0)
+
+[node name="LeftShinMesh" type="MeshInstance3D" parent="LeftLeg/LeftShin" unique_id=2060926788]
+mesh = SubResource("CapsuleMesh_g5wkh")
+
+[node name="LeftShinCollision" type="CollisionShape3D" parent="LeftLeg/LeftShin" unique_id=1624559253]
+shape = SubResource("CapsuleShape3D_vxolb")
+
+[node name="LeftFoot" type="RigidBody3D" parent="LeftLeg" unique_id=1660094495]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.15, 0.05, -0.07)
+
+[node name="LeftFootMesh" type="MeshInstance3D" parent="LeftLeg/LeftFoot" unique_id=1658428482]
+mesh = SubResource("BoxMesh_g5wkh")
+
+[node name="LeftFootCollision" type="CollisionShape3D" parent="LeftLeg/LeftFoot" unique_id=666095689]
+shape = SubResource("BoxShape3D_vxolb")
+
+[node name="LeftHipJoint" type="HingeJoint3D" parent="LeftLeg" unique_id=1555176023]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -0.15, 1.05, 0)
+node_a = NodePath("../../Torso")
+node_b = NodePath("../LeftThigh")
+angular_limit/upper = 0.7853982
+angular_limit/lower = -0.7853982
+motor/target_velocity = 0.0
+motor/max_impulse = 5.0
+
+[node name="LeftKneeJoint" type="HingeJoint3D" parent="LeftLeg" unique_id=1050607777]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -0.15, 0.55, 0)
+node_a = NodePath("../LeftThigh")
+node_b = NodePath("../LeftShin")
+angular_limit/enable = true
+angular_limit/upper = 2.0943952
+angular_limit/lower = -0.17453292
+motor/target_velocity = 0.0
+motor/max_impulse = 5.0
+
+[node name="LeftAnkleJoint" type="HingeJoint3D" parent="LeftLeg" unique_id=327269002]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -0.15, 0, 0)
+node_a = NodePath("../LeftShin")
+node_b = NodePath("../LeftFoot")
+angular_limit/enable = true
+angular_limit/upper = 0.5235988
+angular_limit/lower = -0.5235988
+motor/target_velocity = 0.0
+motor/max_impulse = 5.0
+
+[node name="RightLeg" type="Node3D" parent="." unique_id=797088160]
+
+[node name="RightThigh" type="RigidBody3D" parent="RightLeg" unique_id=1434577544]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.15, 0.82, 0)
+
+[node name="RightThighMesh" type="MeshInstance3D" parent="RightLeg/RightThigh" unique_id=903436416]
+mesh = SubResource("CapsuleMesh_tkfer")
+
+[node name="RightThighCollision" type="CollisionShape3D" parent="RightLeg/RightThigh" unique_id=1512748375]
+shape = SubResource("CapsuleShape3D_g5wkh")
+
+[node name="RightShin" type="RigidBody3D" parent="RightLeg" unique_id=741689782]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.15, 0.3, 0)
+
+[node name="RightShinMesh" type="MeshInstance3D" parent="RightLeg/RightShin" unique_id=526346384]
+mesh = SubResource("CapsuleMesh_g5wkh")
+
+[node name="RightShinCollision" type="CollisionShape3D" parent="RightLeg/RightShin" unique_id=2040320009]
+shape = SubResource("CapsuleShape3D_vxolb")
+
+[node name="RightFoot" type="RigidBody3D" parent="RightLeg" unique_id=308782544]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.15, 0.05, -0.07)
+
+[node name="RightFootMesh" type="MeshInstance3D" parent="RightLeg/RightFoot" unique_id=588271969]
+mesh = SubResource("BoxMesh_g5wkh")
+
+[node name="RightFootCollision" type="CollisionShape3D" parent="RightLeg/RightFoot" unique_id=176382946]
+shape = SubResource("BoxShape3D_vxolb")
+
+[node name="RightHipJoint" type="HingeJoint3D" parent="RightLeg" unique_id=1126881535]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.15, 1.05, 0)
+node_a = NodePath("../../Torso")
+node_b = NodePath("../RightThigh")
+angular_limit/enable = true
+angular_limit/upper = 0.7853982
+angular_limit/lower = -0.7853982
+motor/target_velocity = 0.0
+motor/max_impulse = 5.0
+
+[node name="RightKneeJoint" type="HingeJoint3D" parent="RightLeg" unique_id=266298046]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.15, 0.55, 0)
+node_a = NodePath("../RightThigh")
+node_b = NodePath("../RightShin")
+angular_limit/enable = true
+angular_limit/upper = 2.0943952
+angular_limit/lower = -0.17453292
+motor/target_velocity = 0.0
+motor/max_impulse = 5.0
+
+[node name="RightAnkleJoint" type="HingeJoint3D" parent="RightLeg" unique_id=1231547786]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
+node_a = NodePath("../RightShin")
+node_b = NodePath("../RightFoot")
+angular_limit/enable = true
+angular_limit/upper = 0.5235988
+angular_limit/lower = -0.5235988
+motor/target_velocity = 0.0
+motor/max_impulse = 5.0
