@@ -2,7 +2,12 @@
 
 [ext_resource type="Script" uid="uid://dxiymsh3yw4jb" path="res://Scripts/garry.gd" id="1_g5wkh"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g5wkh"]
+albedo_color = Color(0.29803923, 0.87058824, 0.6745098, 1)
+metallic = 1.0
+
 [sub_resource type="BoxMesh" id="BoxMesh_tkfer"]
+material = SubResource("StandardMaterial3D_g5wkh")
 size = Vector3(0.45, 0.65, 0.25)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_tkfer"]
@@ -33,14 +38,13 @@ size = Vector3(0.16, 0.1, 0.32)
 [node name="Garry" type="Node3D" unique_id=1924829701]
 script = ExtResource("1_g5wkh")
 
-[node name="Torso" type="RigidBody3D" parent="." unique_id=1396745617]
+[node name="Torso" type="RigidBody3D" parent="." unique_id=124016312]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.35, 0)
-mass = 5.0
 
 [node name="TorsoMesh" type="MeshInstance3D" parent="Torso" unique_id=1056658971]
 mesh = SubResource("BoxMesh_tkfer")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Torso" unique_id=8212628]
+[node name="TorsoCollision" type="CollisionShape3D" parent="Torso" unique_id=8212628]
 shape = SubResource("BoxShape3D_tkfer")
 
 [node name="LeftLeg" type="Node3D" parent="." unique_id=1833111469]
@@ -64,18 +68,21 @@ mesh = SubResource("CapsuleMesh_g5wkh")
 shape = SubResource("CapsuleShape3D_vxolb")
 
 [node name="LeftFoot" type="RigidBody3D" parent="LeftLeg" unique_id=1660094495]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.15, 0.05, -0.07)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.15, 0.05, -0.00718721)
 
 [node name="LeftFootMesh" type="MeshInstance3D" parent="LeftLeg/LeftFoot" unique_id=1658428482]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, -0.15)
 mesh = SubResource("BoxMesh_g5wkh")
 
 [node name="LeftFootCollision" type="CollisionShape3D" parent="LeftLeg/LeftFoot" unique_id=666095689]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, -0.15)
 shape = SubResource("BoxShape3D_vxolb")
 
 [node name="LeftHipJoint" type="HingeJoint3D" parent="LeftLeg" unique_id=1555176023]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -0.15, 1.05, 0)
 node_a = NodePath("../../Torso")
 node_b = NodePath("../LeftThigh")
+angular_limit/enable = true
 angular_limit/upper = 0.7853982
 angular_limit/lower = -0.7853982
 motor/target_velocity = 0.0
@@ -122,12 +129,14 @@ mesh = SubResource("CapsuleMesh_g5wkh")
 shape = SubResource("CapsuleShape3D_vxolb")
 
 [node name="RightFoot" type="RigidBody3D" parent="RightLeg" unique_id=308782544]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.15, 0.05, -0.07)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.15, 0.05, -0.007)
 
 [node name="RightFootMesh" type="MeshInstance3D" parent="RightLeg/RightFoot" unique_id=588271969]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, -0.15)
 mesh = SubResource("BoxMesh_g5wkh")
 
 [node name="RightFootCollision" type="CollisionShape3D" parent="RightLeg/RightFoot" unique_id=176382946]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, -0.15)
 shape = SubResource("BoxShape3D_vxolb")
 
 [node name="RightHipJoint" type="HingeJoint3D" parent="RightLeg" unique_id=1126881535]
@@ -151,7 +160,7 @@ motor/target_velocity = 0.0
 motor/max_impulse = 5.0
 
 [node name="RightAnkleJoint" type="HingeJoint3D" parent="RightLeg" unique_id=1231547786]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.15, 0, 0)
 node_a = NodePath("../RightShin")
 node_b = NodePath("../RightFoot")
 angular_limit/enable = true
