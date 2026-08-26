@@ -5,7 +5,7 @@ func _ready() -> void:
 	apply_central_impulse(
 		Vector3(
 		0.0, # x: no sideways force
-		3.5, # y: upwards
+		1.95, # y: upwards
 		-8.0) # z: the direction towards goal (along negative z) 
 		)
 		

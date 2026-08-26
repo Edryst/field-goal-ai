@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://6xog4csor2br"]
 
 [ext_resource type="PackedScene" uid="uid://bkgrt6d2p2vrm" path="res://Scenes/football.tscn" id="1_jjgbg"]
+[ext_resource type="Script" uid="uid://cii3ynrbkkksr" path="res://Scripts/goal_detector.gd" id="2_bo1nx"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7u77a"]
 albedo_color = Color(0.41960785, 0.58431375, 0.2784314, 1)
@@ -62,7 +63,7 @@ height = 6.0
 radius = 0.06
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_fdnlq"]
-size = Vector3(5.4, 6, 0.5)
+size = Vector3(5.4, 20, 0.5)
 
 [node name="Main" type="Node3D" unique_id=1497583186]
 
@@ -122,9 +123,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.82, 6, 0)
 shape = SubResource("CylinderShape3D_6iyac")
 
 [node name="GoalDetector" type="Area3D" parent="GoalPost" unique_id=2130620298]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
+script = ExtResource("2_bo1nx")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="GoalPost/GoalDetector" unique_id=1728766737]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 13.05, 0)
 shape = SubResource("BoxShape3D_fdnlq")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=985061350]

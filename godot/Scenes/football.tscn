@@ -19,7 +19,7 @@ margin = 0.005
 radius = 0.085
 height = 0.28
 
-[node name="Football" type="RigidBody3D" unique_id=1020021174]
+[node name="Football" type="RigidBody3D" unique_id=1020021174 groups=["football"]]
 mass = 0.41
 physics_material_override = SubResource("PhysicsMaterial_sstna")
 script = ExtResource("1_dceio")
