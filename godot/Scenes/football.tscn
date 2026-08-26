@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://bkgrt6d2p2vrm"]
+
+[ext_resource type="Script" uid="uid://4ly6jws8h3de" path="res://Scripts/football.gd" id="1_dceio"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_sstna"]
+friction = 0.6
+bounce = 0.25
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sstna"]
+albedo_color = Color(0.5176471, 0.2784314, 0.08235294, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_dceio"]
+material = SubResource("StandardMaterial3D_sstna")
+radius = 0.085
+height = 0.28
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_sstna"]
+margin = 0.005
+radius = 0.085
+height = 0.28
+
+[node name="Football" type="RigidBody3D" unique_id=1020021174]
+mass = 0.41
+physics_material_override = SubResource("PhysicsMaterial_sstna")
+script = ExtResource("1_dceio")
+
+[node name="FootballMesh" type="MeshInstance3D" parent="." unique_id=494898061]
+mesh = SubResource("SphereMesh_dceio")
+
+[node name="FootballCollision" type="CollisionShape3D" parent="." unique_id=2131017462]
+shape = SubResource("CapsuleShape3D_sstna")

@@ -1,0 +1,20 @@
+| Stage  | What we build                               | What you'll learn                         |
+| ------ | ------------------------------------------- | ----------------------------------------- |
+| **1**  | Repository + Godot/Python project structure | Git/project architecture                  |
+| **2**  | Empty 3D football field                     | Godot 3D basics                           |
+| **3**  | Physical football                           | Rigid-body physics                        |
+| **4**  | Goal posts + goal detection                 | Collision/Area3D                          |
+| **5**  | Crude articulated kicker                    | 3D rigid bodies + joints                  |
+| **6**  | Manually control hip/knee/ankle             | What the RL agent will eventually control |
+| **7**  | Reset an entire kick episode                | RL environment lifecycle                  |
+| **8**  | Godot ↔ Python communication                | Sockets/API architecture                  |
+| **9**  | Build a Gymnasium environment               | Observations/actions                      |
+| **10** | Define rewards                              | Reward engineering                        |
+| **11** | Random-action agent                         | Validate the environment                  |
+| **12** | PPO agent                                   | First actual ML                           |
+| **13** | Train                                       | Watch Robo-Leg discover football          |
+| **14** | Stats dashboard                             | Analyse learning                          |
+| **15** | Save/load trained models                    | ML persistence                            |
+| **16** | Accelerated/headless training               | Millions of attempts                      |
+| **17** | Pretty character + cameras                  | YouTube-worthy carnage                    |
+| **18** | Give the AI more joints                     | Full-body kicking                         |
