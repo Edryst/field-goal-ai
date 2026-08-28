@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://bkgrt6d2p2vrm" path="res://Scenes/football.tscn" id="1_jjgbg"]
 [ext_resource type="Script" uid="uid://cii3ynrbkkksr" path="res://Scripts/goal_detector.gd" id="2_bo1nx"]
 [ext_resource type="PackedScene" uid="uid://dxpo8ueqbdb8u" path="res://Scenes/garry.tscn" id="3_8gbba"]
+[ext_resource type="Script" uid="uid://bohfgdxmnqw5w" path="res://Scripts/episode_manager.gd" id="4_jjvhh"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7u77a"]
 albedo_color = Color(0.41960785, 0.58431375, 0.2784314, 1)
@@ -145,3 +146,6 @@ current = true
 
 [node name="CameraBehind" type="Camera3D" parent="." unique_id=1986224578]
 transform = Transform3D(-0.8948564, 0, 0.4463541, 0, 1, 0, -0.4463541, 0, -0.8948564, 7.2, 5.15, -32)
+
+[node name="EpisodeManager" type="Node" parent="." unique_id=986501743]
+script = ExtResource("4_jjvhh")

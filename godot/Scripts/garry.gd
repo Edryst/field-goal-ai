@@ -267,7 +267,12 @@ func get_observation() -> Array[float]:
 		get_joint_velocity(right_shin, right_foot)
 	]
 
-
+func get_torso_height() -> float:
+	# Returns Garry's current torso height in world coordinates.
+	# EpisodeManager can use this to determine whether Garry
+	# has fallen without needing to know about Garry's body nodes.
+	return torso.global_position.y
+	
 func get_joint_angle(body_a: RigidBody3D, body_b: RigidBody3D) -> float:
 	# Convert body B's rotation into body A's local coordinate system.
 	# This allows us to measure how much the two connected body
