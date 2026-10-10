@@ -4,6 +4,9 @@ extends Node
 # when to reset between attempts.
 @onready var garry = $"../Garry"
 
+# Reference to the football so we can reset it between attempts
+@onready var football = $"../Football"
+
 # ============================================================
 # EPISODE SETTINGS
 # ==========================================================
@@ -97,17 +100,16 @@ func end_episode(reason: String) -> void:
 	# this episode is already being cleaned up.
 	episode_ending = true
 
-	print(
-		"Episode ",
-		episode_number,
-		" ended: ",
-		reason
-	)
+	# Record why this attempt ended
+	print("Episode ", episode_number, " ended: ", reason)
 
-	# Wait until Garry has completely reset before allowing
+	# Wait until Garry and Football has completely reset before allowing
 	# the next training attempt to begin.
 	await garry.reset_garry()
+	await football.reset_football()
 
+	# Both objects cleaned and ready for next attempt
 	start_episode()
-
+	
+	# Begin next attempt
 	episode_ending = false
