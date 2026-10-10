@@ -64,9 +64,17 @@ var initial_transforms: Dictionary = {}
 # Prevents normal controls from running while Garry is being reset.
 var is_resetting := false
 
+# Emitted whenever Garry's right foot touches the football.
+# Other systems can listen for this without needing to
+# inspect Garry's individual physics bodies.
+signal football_contact
+
 
 func _ready() -> void:
 	print("Garry controller online")
+	
+	# Listen for collisions involving Garry's right foot.
+	right_foot.body_entered.connect(_on_right_foot_body_entered)
 
 	# Store all physical body parts in one list so we can easily
 	# loop through them when resetting Garry.
@@ -104,6 +112,7 @@ func _ready() -> void:
 		0.0,
 		0.0
 	])
+	
 
 
 func _physics_process(_delta: float) -> void:
@@ -337,3 +346,19 @@ func set_joint_action(joint: HingeJoint3D, action: float) -> void:
 		HingeJoint3D.PARAM_MOTOR_MAX_IMPULSE,
 		MOTOR_IMPULSE
 	)
+
+func _on_right_foot_body_entered(body: Node) -> void:
+	# This signal fires when the right foot begins touching
+	# another physics body, including the ground or Garry himself.
+	#
+	# We only care about contact with the football.
+
+	if not body.is_in_group("football"):
+		return
+
+	# Report that Garry's designated kicking foot
+	# has made contact with the ball.
+	print("Garry's right foot contacted the football!")
+
+	# Notify other systems, such as EpisodeManager.
+	football_contact.emit()

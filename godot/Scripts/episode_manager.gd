@@ -1,11 +1,40 @@
 extends Node
 
+# ============================================================
+# EPISODE PHASES
+# ============================================================
+
+# APPROACH: Garry is attempting to kick the football.
+# BALL_IN_FLIGHT: The ball has been contacted and we're
+# waiting to determine the outcome of the kick.
+enum EpisodePhase {
+	APPROACH,
+	BALL_IN_FLIGHT
+}
+
+# Tracks which phase the current episode is in.
+var current_phase: EpisodePhase = EpisodePhase.APPROACH
+
+# Maximum time allowed after contact for the ball to finish its flight.
+const BALL_FLIGHT_DURATION := 6.0
+
+# Tracks time since the kick was detected.
+var ball_flight_time := 0.0
+
+# ============================================================
+# REFERENCES
+# ============================================================
+
 # Reference to Garry so the episode manager can tell him
 # when to reset between attempts.
 @onready var garry = $"../Garry"
 
 # Reference to the football so we can reset it between attempts
 @onready var football = $"../Football"
+
+# Reference to the goal detector so EpisodeManager
+# can respond when the football scores.
+@onready var goal_detector: Area3D = $"../GoalPost/GoalDetector"
 
 # ============================================================
 # EPISODE SETTINGS
@@ -46,46 +75,56 @@ func _ready() -> void:
 	# Start the first training attempt as soon as the scene begins.
 	start_episode()
 	
+	# Listen for contact between Garry's right foot and the football.
+	garry.football_contact.connect(_on_football_contact)
+	
+	# Listen for successful field goals.
+	# GoalDetector handles detection; EpisodeManager handles the outcome.
+	goal_detector.goal_scored.connect(_on_goal_scored)
+	
 func _physics_process(delta: float) -> void:
-	# Do not evaluate the episode while it is already ending
-	# and Garry is being reset.
+	# Don't process episode conditions during a reset.
 	if episode_ending:
 		return
 
-	# Track the total duration of the current attempt.
-	episode_time += delta
+	match current_phase:
+		EpisodePhase.APPROACH:
+			# Count time available for Garry to kick.
+			episode_time += delta
 
-	# ------------------------------------------------------------
-	# FALL DETECTION
-	# ------------------------------------------------------------
+			# Check whether Garry has fallen.
+			if garry.get_torso_height() < FALL_HEIGHT:
+				fall_time += delta
+			else:
+				fall_time = 0.0
 
-	# Check whether Garry's torso has dropped below our
-	# minimum acceptable height.
-	if garry.get_torso_height() < FALL_HEIGHT:
-		# Keep track of how long he has remained too low.
-		fall_time += delta
-	else:
-		# If Garry gets back above the threshold, he has recovered,
-		# so discard the accumulated fall time.
-		fall_time = 0.0
+			# End early if Garry stays below the fall threshold.
+			if fall_time >= FALL_GRACE_TIME:
+				end_episode("fell")
+				return
 
-	# Only declare a fall if Garry has remained too low
-	# continuously for the required grace period.
-	if fall_time >= FALL_GRACE_TIME:
-		end_episode("fell")
-		return
+			# End if Garry never contacts the ball.
+			if episode_time >= EPISODE_DURATION:
+				end_episode("timeout")
+				return
 
-	# ------------------------------------------------------------
-	# TIME LIMIT
-	# ------------------------------------------------------------
+		EpisodePhase.BALL_IN_FLIGHT:
+			# Garry's balance no longer affects episode termination.
+			# Give the football time to reach the goal.
+			ball_flight_time += delta
 
-	# If Garry has not already fallen, end the attempt when
-	# the maximum episode duration is reached.
-	if episode_time >= EPISODE_DURATION:
-		end_episode("timeout")
-		return
+			# Temporary flight timeout until we implement
+			# goal detection and other ball outcomes.
+			if ball_flight_time >= BALL_FLIGHT_DURATION:
+				end_episode("flight_timeout")
+				return
 		
 func start_episode() -> void:
+	
+	# Prepare the next attempt.
+	current_phase = EpisodePhase.APPROACH
+	ball_flight_time = 0.0
+	
 	# Reset all timers for the new attempt.
 	episode_time = 0.0
 	fall_time = 0.0
@@ -113,3 +152,27 @@ func end_episode(reason: String) -> void:
 	
 	# Begin next attempt
 	episode_ending = false
+
+func _on_football_contact() -> void:
+	# Ignore contact during resets or after the first detected kick.
+	if episode_ending or current_phase != EpisodePhase.APPROACH:
+		return
+
+	# The football has been contacted by Garry's kicking foot.
+	# Switch to the flight phase so falling no longer ends the episode.
+	current_phase = EpisodePhase.BALL_IN_FLIGHT
+	ball_flight_time = 0.0
+
+	print("Football contacted! Waiting for kick outcome.")
+
+func _on_goal_scored() -> void:
+	# Ignore goal events during resets or before a kick.
+	# A goal should only count after Garry's right foot
+	# has contacted the football.
+	if episode_ending or current_phase != EpisodePhase.BALL_IN_FLIGHT:
+		return
+
+	# A successful kick ends the episode immediately.
+	print("FIELD GOAL SUCCESSFUL!")
+
+	end_episode("goal")
